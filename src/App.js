@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+// import { connect } from 'react-redux'
+import { connect } from './react-Zbx'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(props) {
+    const { Dispatch, state } = props
+
+    return (
+        <div className="App">
+            hello react {state.userReducer.age}
+            <button onClick={() => Dispatch({type: 'INCREASE'})}>增加年龄</button>
+            <button onClick={() => Dispatch({type: 'DECREASE'})}>减少年龄</button>
+        </div>
+    );
 }
 
-export default App;
+
+
+function mapStateToProps(state) {
+    return { state }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        Dispatch: dispatch
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
